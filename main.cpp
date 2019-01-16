@@ -248,8 +248,9 @@
 #include "CacheManager.h"
 #include "MyClientHandler.h"
 
-int main() {
+int main(int argc, char* argv[]) {
 
+    int port = stoi(argv[1]);
     server_side::MyParallelServer myParallelServer;
 
     Isearcher<pair<int, int>, string>* iSearcher = new Astar<pair<int, int>, string>;
@@ -257,7 +258,7 @@ int main() {
                                                                         = new SearchSolver<Searchable<pair<int, int>>* , string, pair<int, int>>(iSearcher);
     CacheManager<string, string>* cacheManager = new FileCasheManager;
     ClientHandler* clientHandler = new MyClientHandler(solver, cacheManager);
-    myParallelServer.openServer(5400, clientHandler);
+    myParallelServer.openServer(port, clientHandler);
 
 
 
